@@ -22,18 +22,6 @@ def home_screen_view(request):
 
 
 
-def cart_view(request):
-
-	if request.user.is_authenticated:
-		username = request.user.username 
-		order, created = Order.objects.get_or_create(username=username,complete=False)
-
-	else:
-		items=[]
-
-	context={'items':items}
-
-	return render(request,"oyster/cart.html",context)
 
 def checkout_view(request):
 	context={}
