@@ -12,36 +12,132 @@
 
   <title>Elegant Oysters Online Store</title>
 
-  <style>
-    nav{
-      background-color: #A6D0DD;
-    }
-    .one-edge-shadow {
-              box-shadow: 0 8px 2px -5px rgb(246, 245, 245);
+  <style type="text/css">
+  .container {
+  max-width: 960px;
 }
-.display-8{
-  font-weight: 200;
-  font-size: 30px;
-  font-colour: $teal-200;
+
+/*
+ * Custom translucent site header
+ */
+
+.site-header {
+  background-color: rgba(0, 0, 0, .85);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
 }
-  </style>
+.site-header a {
+  color: #999;
+  transition: ease-in-out color .15s;
+}
+.site-header a:hover {
+  color: #fff;
+  text-decoration: none;
+}
+
+/*
+ * Dummy devices (replace them with your own or something else entirely!)
+ */
+
+.product-device {
+  position: absolute;
+  right: 10%;
+  bottom: -30%;
+  width: 300px;
+  height: 540px;
+  background-color: #333;
+  border-radius: 21px;
+  -webkit-transform: rotate(30deg);
+  transform: rotate(30deg);
+}
+
+.product-device::before {
+  position: absolute;
+  top: 10%;
+  right: 10px;
+  bottom: 10%;
+  left: 10px;
+  content: "";
+  background-color: rgba(255, 255, 255, .1);
+  border-radius: 5px;
+}
+
+.product-device-2 {
+  top: -25%;
+  right: auto;
+  bottom: 0;
+  left: 5%;
+  background-color: #e5e5e5;
+}
+
+
+/*
+ * Extra utilities
+ */
+
+.flex-equal > * {
+  -ms-flex: 1;
+  flex: 1;
+}
+@media (min-width: 768px) {
+  .flex-md-equal > * {
+    -ms-flex: 1;
+    flex: 1;
+  }
+}
+
+.overflow-hidden { overflow: hidden; }
+
+</style>
 </head>
 
 <body>
+
+
+ <nav class="site-header sticky-top py-1">
+      <div class="container d-flex flex-column flex-md-row justify-content-between">
+        <a class="py-2" href="#">
+         
+        </a>
+        <a class="py-2 d-none d-md-inline-block" href="/store">Store</a>
+        <a class="py-2 d-none d-md-inline-block" href="/aboutus">About Us</a>
+        <a class="py-2 d-none d-md-inline-block" href="#">Tour</a>
+        {% if request.session.customer %}  
+        
+          <a class="nav-link" href="/orders">Orders<span class="sr-only">(current)</span></a>
+        
+       
+          <a class="nav-link" href="/logout">Logout<span class="sr-only">(current)</span></a>
+        
+        {% else %}
+       
+      
+          <a class="nav-link" href="/signup">Signup<span class="sr-only">(current)</span></a>
+        
+      
+          <a class="nav-link" href="/login">Login<span class="sr-only">(current)</span></a>
+        
+        {% endif %}</a>
+        
+        
+       
+        <a class="py-2 d-none d-md-inline-block" href="/cart">Cart
+            <span class="badge badge-success">{{request.session.cart.keys|length}}</span>
+            <span class="sr-only">(current)</span>
+          </a>
+      </div>
+    </nav>
   <!-- navbar -->
 
-<nav class="one-edge-shadow
-  navbar navbar-light
-  sticky-top navbar 
-  navbar-expand-lg
-  text-white">
+<nav class="one-edge-shadow navbar navbar-light sticky-top navbar navbar-expand-lg text-white">
     <a class="navbar-brand ms-3 text-dark " href="/">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 
-   <h1>Elegant Oysters Online Store</h1>
+   
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+      <span class="navbar-toggler-icon">
+      </span>
     </button>
 
 
@@ -50,48 +146,27 @@
         <li class="nav-item active">
           <a class="nav-link" href="/store"><span class="sr-only">(current)</span></a>
         </li>
-
-          </ul>
-
-
-
-
-      <ul class=" navbar-nav my-2 my-lg-0">
-
-        <li class="nav-item active">
-          <a class="nav-link" href="/cart">Cart 
-            <span class="badge badge-success">{{request.session.cart.keys|length}}</span>
-            <span class="sr-only">(current)</span></a>
-        </li>
-
-        {% if request.session.customer %}
-
-        
-        
-        <li class="nav-item active ">
-          <a class="nav-link" href="/orders">Orders<span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item active ">
-          <a class="nav-link" href="/logout">Logout<span class="sr-only">(current)</span></a>
-        </li>
-        {% else %}
-       
-        <li class="nav-item active">
-          <a class="nav-link" href="/signup">Signup<span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="/login">Login<span class="sr-only">(current)</span></a>
-        </li>
-        {% endif %}
-
-
       </ul>
 
-
+      <ul class=" navbar-nav my-2 my-lg-0">
+        <li class="nav-item active">
+          
+        
+        </li>
+       
+        
+      </ul>
     </div>
   </nav>
   <!---->
-  {% block content %}{% endblock %}
+  {% block content %}
+
+
+
+  {% endblock %}
+
+
+   
 
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
